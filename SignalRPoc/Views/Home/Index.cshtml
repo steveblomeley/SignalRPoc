@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h2>The SignalR Poco</h2>
+    Check out the auto-generated @Html.ActionLink("SignalR JavaScript", "hubs", "signalr")
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <input type="text" placeholder="Message" data-bind="value:message" />
+        <button class="btn btn-primary" data-bind="click:sendMessage">Send Message</button>
+    </div>
+    <div class="col-md-4">
+        <div data-bind="foreach:messages">
+            <div data-bind="text: $data"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row" data-bind="foreach:counters">
+    <div class="col-md-12">
+        <h2 data-bind="text:name"></h2>
+        <canvas width="1000" height="100" data-bind="attr:{'id': name}"></canvas>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/SignalR/hubs"></script>
+    <script src="~/Scripts/smoothie.js"></script>
+    <script src="~/Scripts/SignalRPoco/Poc.js"></script>
+}
