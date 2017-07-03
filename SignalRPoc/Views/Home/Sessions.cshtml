@@ -1,0 +1,18 @@
+﻿@model IEnumerable<SignalRPoc.Controllers.Session>
+
+@{
+    ViewBag.Title = "Sessions";
+}
+
+<h2>Sessions</h2>
+
+<div id="sessions">
+    @Html.Partial("_Sessions", Model)
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/SignalR/hubs"></script>
+    <script src="~/Scripts/SignalRPoco/Sessions.js"></script>
+}

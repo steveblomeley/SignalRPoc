@@ -40,7 +40,7 @@ namespace SignalRPoc.Controllers
                 Data = "some data"
             };
 
-            _sessions.Add(new Session{User = HttpContext.User.Identity.Name, RecordId=model.Id});
+            AllSessions.List.Add(new Session{User = HttpContext.User.Identity.Name, RecordId=model.Id});
             var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
             context.Clients.All.sessionsChanged();
 
@@ -51,8 +51,8 @@ namespace SignalRPoc.Controllers
         public ActionResult Edit(Model model)
         {
             var user = HttpContext.User.Identity.Name;
-            var session = _sessions.FirstOrDefault(x => x.User == user && x.RecordId == model.Id);
-            if (session != null) _sessions.Remove(session);
+            var session = AllSessions.List.FirstOrDefault(x => x.User == user && x.RecordId == model.Id);
+            if (session != null) AllSessions.List.Remove(session);
             var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
             context.Clients.All.sessionsChanged();
 
@@ -62,16 +62,20 @@ namespace SignalRPoc.Controllers
         [HttpGet]
         public ActionResult Sessions()
         {
-            return View(_sessions);
+            return View(AllSessions.List);
         }
 
         [HttpGet]
         public PartialViewResult SessionsPartial()
         {
-            return PartialView("_Sessions", _sessions);
+            return PartialView("_Sessions", AllSessions.List);
         }
 
-        private static readonly IList<Session> _sessions = new List<Session>();
+    }
+
+    public static class AllSessions
+    {
+        public static IList<Session> List { get; } = new List<Session>();
     }
 
     public class Model
