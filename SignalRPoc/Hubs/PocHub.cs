@@ -44,8 +44,7 @@ namespace SignalRPoc.Hubs
         }
     }
 
-    public class MonitorHub : Hub
+    public class SessionsHub : Hub
     {
-        
     }
 }
