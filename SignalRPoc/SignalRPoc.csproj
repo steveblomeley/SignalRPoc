@@ -169,7 +169,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="App_Data\AllSessions.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Hubs\SessionsHub.cs" />
+    <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\Session.cs" />
     <Compile Include="Controllers\SessionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -230,10 +234,7 @@
     <Content Include="Views\Home\Sessions.cshtml" />
     <Content Include="Views\Home\_Sessions.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>

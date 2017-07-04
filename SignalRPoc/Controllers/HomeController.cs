@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.SignalR;
+using SignalRPoc.App_Data;
 using SignalRPoc.Hubs;
+using SignalRPoc.Models;
 
 namespace SignalRPoc.Controllers
 {
@@ -70,23 +69,5 @@ namespace SignalRPoc.Controllers
         {
             return PartialView("_Sessions", AllSessions.List);
         }
-
-    }
-
-    public static class AllSessions
-    {
-        public static IList<Session> List { get; } = new List<Session>();
-    }
-
-    public class Model
-    {
-        public int Id { get; set; }
-        public string Data { get; set; }
-    }
-
-    public class Session
-    {
-        public string User { get; set; }
-        public int RecordId { get; set; }
     }
 }

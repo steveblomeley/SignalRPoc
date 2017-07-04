@@ -6,6 +6,11 @@
         //.fail(function () { alert("Could not connect to SignalR hub!")});
 
     sessionsHub.client.sessionsChanged = function () {
+        //this is called from the server to signal to clients that the list of sessions has changed
+        //in response, the client will hit the web api at /api/sessions to retrieve the updated list of sessions
+        //it will use this list to update the DOM to reflect who is editing what
+
+        //but for now, it just does this:
         $("#sessions").load("/Home/SessionsPartial");
     };
 })();

@@ -43,8 +43,4 @@ namespace SignalRPoc.Hubs
             return base.OnDisconnected(stopCalled);
         }
     }
-
-    public class SessionsHub : Hub
-    {
-    }
 }
