@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SignalRPoc.Models.Model>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        var targetId = $"editor-for-model-{item.Id}";
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id })&nbsp;|&nbsp;
+
+                @Ajax.ActionLink(
+                    $"Edit {item.Id}",
+                    MVC.Data.Edit(item.Id),
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = @targetId,
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "Get"
+                    })
+            </td>
+        </tr>
+        <tr id="@targetId" class="editor-container"></tr>
+    }
+
+</table>
+
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+}
