@@ -23,8 +23,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button type="button"class="btn btn-danger" onclick="$(this).closest('tr').empty();">Cancel</button>
-                <input type="submit" value="Save" class="btn btn-primary"/>
+                <input type="submit" value="Cancel" data-action="/Data/CancelEdit" onclick="Edit(event)" class="btn btn-danger" />
+                <input type="submit" value="Save" data-action="/Data/Edit" onclick="Edit(event)" class="btn btn-primary"/>
             </div>
         </div>
     </div>

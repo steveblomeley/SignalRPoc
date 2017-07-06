@@ -3,17 +3,44 @@
 };
 
 function PostSuccess(data) {
+    if (data.Cancelled) {
+        EditCancelled(data);
+    } else {
+        EditSaved(data);
+    }
+}
+
+function EditSaved(data) {
     $("#alert-success").showAlertMessage(data.Message);
+
     var editorId = "#editor-for-model-" + data.Id;
+
     $(editorId).prev("tr").remove();
     $(editorId).remove();
+
     if ($("[id^=editor-for-model-]").length === 0) {
         $("#no-more-data").removeClass("hidden");
     }
 }
 
+function EditCancelled(data) {
+    $("#alert-info").showAlertMessage(data.Message);
+
+    var editorId = "#editor-for-model-" + data.Id;
+
+    $(editorId).empty();
+}
+
 function PostFail(data) {
     $("#alert-error").showAlertMessage(data.responseJSON.Message);
+
     var editorId = "#editor-for-model-" + data.responseJSON.Id;
+
     $(editorId).empty();
+}
+
+function Edit(e) {
+    var target = (e.target) ? e.target : e.srcElement;
+    var action = $(target).attr("data-action");
+    $(target).closest("form").attr("action", action);
 }

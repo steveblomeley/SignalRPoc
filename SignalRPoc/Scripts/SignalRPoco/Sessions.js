@@ -12,5 +12,23 @@
 
         //but for now, it just does this:
         $("#sessions").load("/Home/SessionsPartial");
+
+        $.ajax({
+            url: "/api/Sessions",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                $("[id^=display-for-model-]").removeClass("locked");
+
+                $.each(data,
+                    function (index, element) {
+                        var displayId = "#display-for-model-" + element.RecordId;
+                        $(displayId).addClass("locked");
+                    });
+            },
+            error: function (data) {
+                alert("uh oh");
+            }
+        });
     };
 })();

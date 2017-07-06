@@ -3,8 +3,11 @@
 @{
     ViewBag.Title = "Index";
 }
+
 <div class="alert alert-success hidden" id="alert-success"></div>
 <div class="alert alert-danger hidden" id="alert-error"></div>
+<div class="alert alert-warning hidden" id="alert-info"></div>
+
 <h2>Index</h2>
 
 <table class="table">
@@ -17,10 +20,10 @@
 
     @foreach (var item in Model)
     {
+        var displayId = $"display-for-model-{item.Id}";
+        var editorId = $"editor-for-model-{item.Id}";
 
-        var targetId = $"editor-for-model-{item.Id}";
-
-        <tr>
+        <tr id="@displayId">
             <td>
                 @Html.DisplayFor(modelItem => item.Data)
             </td>
@@ -30,13 +33,13 @@
                     MVC.Data.Edit(item.Id),
                     new AjaxOptions
                     {
-                        UpdateTargetId = @targetId,
+                        UpdateTargetId = @editorId,
                         InsertionMode = InsertionMode.Replace,
                         HttpMethod = "Get"
                     })
             </td>
         </tr>
-        <tr id="@targetId"></tr>
+        <tr id="@editorId"></tr>
     }
 </table>
 
@@ -44,5 +47,8 @@
 
 @section scripts{
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/SignalR/hubs"></script>
     <script src="~/Scripts/SignalRPoco/App.js"></script>
+    <script src="~/Scripts/SignalRPoco/Sessions.js"></script>
 }
