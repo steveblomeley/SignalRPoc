@@ -1,6 +1,13 @@
 ﻿@model SignalRPoc.Models.Model
-
-@using (Html.BeginForm())
+<td colspan="2">
+@using (Ajax.BeginForm(
+    MVC.Data.Edit(), 
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess="PostSuccess",
+        OnFailure = "PostFail"
+    }))
 {
     <div class="form-horizontal">
         <h4>Model</h4>
@@ -22,3 +29,4 @@
         </div>
     </div>
 }
+</td>
