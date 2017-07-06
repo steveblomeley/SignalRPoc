@@ -8,7 +8,7 @@ namespace SignalRPoc.Controllers
 {
     public partial class DataController : Controller
     {
-        private IEnumerable<Model> _data = new[]
+        private readonly IEnumerable<Model> _data = new[]
         {
             new Model {Id = 0, Data = "some data"},
             new Model {Id = 1, Data = "more data"},
@@ -23,16 +23,26 @@ namespace SignalRPoc.Controllers
             return View(_data);
         }
 
-        public virtual PartialViewResult Edit(int Id)
+        [HttpGet]
+        public virtual PartialViewResult Edit(int id)
         {
-            var data = _data.FirstOrDefault(x => x.Id == Id);
+            var data = _data.FirstOrDefault(x => x.Id == id);
 
-            if (data == null) throw new HttpException(404, $"No data found with id={Id}");
+            if (data == null) throw new HttpException(404, $"No data found with id={id}");
 
             return PartialView("_Edit", data);
         }
 
-        //TODO: create a post method for edit that arbitrarily succeeds or fails 
-        //(result could depend on whether the record ID is odd or even?)
+        [HttpPost]
+        public virtual JsonResult Edit(Model model)
+        {
+            if (model.Data.StartsWith("Fail"))
+            {
+                Response.StatusCode = 500;
+                return Json(new {model.Id, Message = $"Could not save \"{model.Data}\""});
+            }
+
+            return Json(new {model.Id, Message = $"Saved \"{model.Data}\""});
+        }
     }
 }
