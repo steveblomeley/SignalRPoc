@@ -6,8 +6,8 @@
             new AjaxOptions
             {
                 HttpMethod = "POST",
-                OnSuccess = "PostSuccess",
-                OnFailure = "PostFail"
+                OnSuccess = "editPostSuccess",
+                OnFailure = "editPostFailure"
             }))
     {
         <div class="form-horizontal">
@@ -25,8 +25,8 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Cancel" data-action="/Data/CancelEdit" onclick="Edit(event)" class="btn btn-danger" />
-                    <input type="submit" value="Save" data-action="/Data/Edit" onclick="Edit(event)" class="btn btn-primary" />
+                    <input type="submit" value="Cancel" data-action="/Data/CancelEdit" onclick="editPost(event)" class="btn btn-danger" />
+                    <input type="submit" value="Save" data-action="/Data/Edit" onclick="editPost(event)" class="btn btn-primary" />
                 </div>
             </div>
         </div>

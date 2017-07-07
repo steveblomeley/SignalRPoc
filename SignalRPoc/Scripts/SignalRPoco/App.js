@@ -1,16 +1,16 @@
 ﻿jQuery.fn.showAlertMessage = function (message) {
-    return $(this).empty().append(message).removeClass("hidden").show().delay(3000).hide(2000);
+    return $(this).empty().append(message).removeClass("hidden").show().delay(1000).hide(2000);
 };
 
-function PostSuccess(data) {
+function editPostSuccess(data) {
     if (data.Cancelled) {
-        EditCancelled(data);
+        editCancelled(data);
     } else {
-        EditSaved(data);
+        editSaved(data);
     }
 }
 
-function EditSaved(data) {
+function editSaved(data) {
     $("#alert-success").showAlertMessage(data.Message);
 
     var editorId = "#editor-for-model-" + data.Id;
@@ -23,7 +23,7 @@ function EditSaved(data) {
     }
 }
 
-function EditCancelled(data) {
+function editCancelled(data) {
     $("#alert-info").showAlertMessage(data.Message);
 
     var editorId = "#editor-for-model-" + data.Id;
@@ -31,7 +31,7 @@ function EditCancelled(data) {
     $(editorId).empty();
 }
 
-function PostFail(data) {
+function editPostFailure(data) {
     $("#alert-error").showAlertMessage(data.responseJSON.Message);
 
     var editorId = "#editor-for-model-" + data.responseJSON.Id;
@@ -39,13 +39,13 @@ function PostFail(data) {
     $(editorId).empty();
 }
 
-function Edit(e) {
+function editPost(e) {
     var target = (e.target) ? e.target : e.srcElement;
     var action = $(target).attr("data-action");
     $(target).closest("form").attr("action", action);
 }
 
-function setHiddenInputToSignalRClientId() {
+function putSignalRClientIdInHiddenField() {
     var signalRClientId = $.connection.hub.id;
     $("input[name='SignalRClientId']").val(signalRClientId);
 }
