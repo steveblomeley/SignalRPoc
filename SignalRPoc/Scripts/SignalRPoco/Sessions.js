@@ -12,7 +12,7 @@
                         $(displayId).addClass("locked");
                     });
             },
-            error: function (data) {
+            error: function () {
                 alert("Error pulling back data from /api/sessions in sessionsHub function");
             }
         });

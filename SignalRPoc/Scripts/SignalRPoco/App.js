@@ -44,3 +44,7 @@ function Edit(e) {
     var action = $(target).attr("data-action");
     $(target).closest("form").attr("action", action);
 }
+
+function doSomething() {
+    $("input[name='SignalrClientId']").val("abc 123");
+}

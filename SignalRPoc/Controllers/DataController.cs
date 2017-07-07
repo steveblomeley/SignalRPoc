@@ -41,7 +41,7 @@ namespace SignalRPoc.Controllers
         }
 
         [HttpPost]
-        public virtual JsonResult Edit(Model model)
+        public virtual JsonResult Edit(Model model, string signalrClientId)
         {
             var user = HttpContext.User.Identity.Name;
             var session = AllSessions.List.FirstOrDefault(x => x.User == user && x.RecordId == model.Id);
