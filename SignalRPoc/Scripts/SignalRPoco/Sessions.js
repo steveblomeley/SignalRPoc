@@ -1,18 +1,4 @@
-﻿(function () {
-    var sessionsHub = $.connection.sessionsHub;
-    $.connection.hub.logging = true;
-    $.connection.hub.start();
-        //.done(function () { alert("Now connected to SignalR hub, connection ID=" + $.connection.hub.id); })
-        //.fail(function () { alert("Could not connect to SignalR hub!")});
-
-    sessionsHub.client.sessionsChanged = function () {
-        //this is called from the server to signal to clients that the list of sessions has changed
-        //in response, the client will hit the web api at /api/sessions to retrieve the updated list of sessions
-        //it will use this list to update the DOM to reflect who is editing what
-
-        //but for now, it just does this:
-        $("#sessions").load("/Home/SessionsPartial");
-
+﻿function updateLockedRecords() {
         $.ajax({
             url: "/api/Sessions",
             type: "GET",
@@ -27,8 +13,27 @@
                     });
             },
             error: function (data) {
-                alert("uh oh");
+                alert("Error pulling back data from /api/sessions in sessionsHub function");
             }
         });
+}
+
+$(document).ready(function() {
+    updateLockedRecords();
+});
+
+(function () {
+    var sessionsHub = $.connection.sessionsHub;
+    $.connection.hub.logging = true;
+    $.connection.hub.start();
+
+    sessionsHub.client.sessionsChanged = function () {
+        //TODO: split these 2 steps out into separate scripts for the 2 pages that use sessions info
+
+        //If we're on the sessions listing page, update the list
+        $("#sessions").load("/Home/SessionsPartial");
+
+        //If we're in the edit page, pull back the list of edit sessions then update the display
+        updateLockedRecords();
     };
 })();
