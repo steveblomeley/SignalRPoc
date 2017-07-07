@@ -65,6 +65,12 @@ namespace SignalRPoc.Controllers
         {
             return new T4MVC_System_Web_Mvc_PartialViewResult(Area, Name, ActionNames.Edit);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult CancelEdit()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.CancelEdit);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public DataController Actions { get { return MVC.Data; } }
@@ -83,6 +89,7 @@ namespace SignalRPoc.Controllers
         {
             public readonly string Index = "Index";
             public readonly string Edit = "Edit";
+            public readonly string CancelEdit = "CancelEdit";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -90,6 +97,7 @@ namespace SignalRPoc.Controllers
         {
             public const string Index = "Index";
             public const string Edit = "Edit";
+            public const string CancelEdit = "CancelEdit";
         }
 
 
@@ -99,7 +107,17 @@ namespace SignalRPoc.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Edit
         {
-            public readonly string Id = "Id";
+            public readonly string id = "id";
+            public readonly string signalrClientId = "signalrClientId";
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_CancelEdit s_params_CancelEdit = new ActionParamsClass_CancelEdit();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CancelEdit CancelEditParams { get { return s_params_CancelEdit; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CancelEdit
+        {
+            public readonly string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -136,14 +154,40 @@ namespace SignalRPoc.Controllers
         }
 
         [NonAction]
-        partial void EditOverride(T4MVC_System_Web_Mvc_PartialViewResult callInfo, int Id);
+        partial void EditOverride(T4MVC_System_Web_Mvc_PartialViewResult callInfo, int id, string signalrClientId);
 
         [NonAction]
-        public override System.Web.Mvc.PartialViewResult Edit(int Id)
+        public override System.Web.Mvc.PartialViewResult Edit(int id, string signalrClientId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_PartialViewResult(Area, Name, ActionNames.Edit);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Id", Id);
-            EditOverride(callInfo, Id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "signalrClientId", signalrClientId);
+            EditOverride(callInfo, id, signalrClientId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void EditOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, SignalRPoc.Models.Model model, string signalrClientId);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult Edit(SignalRPoc.Models.Model model, string signalrClientId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.Edit);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "signalrClientId", signalrClientId);
+            EditOverride(callInfo, model, signalrClientId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CancelEditOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, SignalRPoc.Models.Model model);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult CancelEdit(SignalRPoc.Models.Model model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.CancelEdit);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            CancelEditOverride(callInfo, model);
             return callInfo;
         }
 

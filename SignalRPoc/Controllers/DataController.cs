@@ -27,13 +27,18 @@ namespace SignalRPoc.Controllers
         }
 
         [HttpGet]
-        public virtual PartialViewResult Edit(int id)
+        public virtual PartialViewResult Edit(int id, string signalrClientId = "")
         {
             var data = _data.FirstOrDefault(x => x.Id == id);
 
             if (data == null) throw new HttpException(404, $"No data found with id={id}");
 
-            AllSessions.List.Add(new Session { User = HttpContext.User.Identity.Name, RecordId = data.Id });
+            AllSessions.List.Add(new Session
+            {
+                User = HttpContext.User.Identity.Name,
+                RecordId = data.Id,
+                SignalRClientId = signalrClientId
+            });
             var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
             context.Clients.All.sessionsChanged();
 
@@ -44,7 +49,8 @@ namespace SignalRPoc.Controllers
         public virtual JsonResult Edit(Model model, string signalrClientId)
         {
             var user = HttpContext.User.Identity.Name;
-            var session = AllSessions.List.FirstOrDefault(x => x.User == user && x.RecordId == model.Id);
+            var session = AllSessions.List
+                .FirstOrDefault(x => x.User == user && x.RecordId == model.Id && x.SignalRClientId==signalrClientId);
             if (session != null) AllSessions.List.Remove(session);
             var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
             context.Clients.All.sessionsChanged();

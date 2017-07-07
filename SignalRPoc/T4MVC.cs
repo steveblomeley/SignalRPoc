@@ -76,6 +76,19 @@ internal partial class T4MVC_System_Web_Mvc_PartialViewResult : System.Web.Mvc.P
     public string Protocol { get; set; }
     public RouteValueDictionary RouteValueDictionary { get; set; }
 }
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+internal partial class T4MVC_System_Web_Mvc_JsonResult : System.Web.Mvc.JsonResult, IT4MVCActionResult
+{
+    public T4MVC_System_Web_Mvc_JsonResult(string area, string controller, string action, string protocol = null): base()
+    {
+        this.InitMVCT4Result(area, controller, action, protocol);
+    }
+    
+    public string Controller { get; set; }
+    public string Action { get; set; }
+    public string Protocol { get; set; }
+    public RouteValueDictionary RouteValueDictionary { get; set; }
+}
 
 
 
@@ -94,6 +107,8 @@ namespace Links
         public static readonly string jquery_1_10_2_min_map = Url("jquery-1.10.2.min.map");
         public static readonly string jquery_signalR_2_2_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.signalR-2.2.2.min.js") ? Url("jquery.signalR-2.2.2.min.js") : Url("jquery.signalR-2.2.2.js");
         public static readonly string jquery_signalR_2_2_2_min_js = Url("jquery.signalR-2.2.2.min.js");
+        public static readonly string jquery_unobtrusive_ajax_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.unobtrusive-ajax.min.js") ? Url("jquery.unobtrusive-ajax.min.js") : Url("jquery.unobtrusive-ajax.js");
+        public static readonly string jquery_unobtrusive_ajax_min_js = Url("jquery.unobtrusive-ajax.min.js");
         public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.validate-vsdoc.min.js") ? Url("jquery.validate-vsdoc.min.js") : Url("jquery.validate-vsdoc.js");
         public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
         public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
@@ -109,6 +124,7 @@ namespace Links
             public const string UrlPath = "~/Scripts/SignalRPoco";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
+            public static readonly string App_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/App.min.js") ? Url("App.min.js") : Url("App.js");
             public static readonly string Poc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Poc.min.js") ? Url("Poc.min.js") : Url("Poc.js");
             public static readonly string Sessions_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Sessions.min.js") ? Url("Sessions.min.js") : Url("Sessions.js");
         }
@@ -136,6 +152,7 @@ namespace Links
             {
                 public static class Assets
                 {
+                    public const string App_js = "~/Scripts/SignalRPoco/App.js"; 
                     public const string Poc_js = "~/Scripts/SignalRPoco/Poc.js"; 
                     public const string Sessions_js = "~/Scripts/SignalRPoco/Sessions.js"; 
                 }
@@ -149,6 +166,8 @@ namespace Links
                 public const string jquery_1_10_2_min_js = "~/Scripts/jquery-1.10.2.min.js"; 
                 public const string jquery_signalR_2_2_2_js = "~/Scripts/jquery.signalR-2.2.2.js"; 
                 public const string jquery_signalR_2_2_2_min_js = "~/Scripts/jquery.signalR-2.2.2.min.js"; 
+                public const string jquery_unobtrusive_ajax_js = "~/Scripts/jquery.unobtrusive-ajax.js"; 
+                public const string jquery_unobtrusive_ajax_min_js = "~/Scripts/jquery.unobtrusive-ajax.min.js"; 
                 public const string jquery_validate_js = "~/Scripts/jquery.validate.js"; 
                 public const string jquery_validate_min_js = "~/Scripts/jquery.validate.min.js"; 
                 public const string jquery_validate_unobtrusive_js = "~/Scripts/jquery.validate.unobtrusive.js"; 

@@ -29,15 +29,16 @@
             </td>
             <td>
                 @Ajax.ActionLink(
-                    $"Edit",
+                    "Edit",
                     MVC.Data.Edit(item.Id),
                     new AjaxOptions
                     {
                         UpdateTargetId = @editorId,
                         InsertionMode = InsertionMode.Replace,
                         HttpMethod = "Get",
-                        OnSuccess = "doSomething"
-                    })
+                        OnSuccess = "setHiddenInputToSignalRClientId"
+                    },
+                    new{@class = "editor-link"})
             </td>
         </tr>
         <tr id="@editorId"></tr>

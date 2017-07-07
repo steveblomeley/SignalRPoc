@@ -45,6 +45,7 @@ function Edit(e) {
     $(target).closest("form").attr("action", action);
 }
 
-function doSomething() {
-    $("input[name='SignalrClientId']").val("abc 123");
+function setHiddenInputToSignalRClientId() {
+    var signalRClientId = $.connection.hub.id;
+    $("input[name='SignalRClientId']").val(signalRClientId);
 }
