@@ -1,4 +1,4 @@
-﻿@model SignalRPoc.Models.Model
+﻿@model SignalRPoc.Models.ViewModel
 
 <td colspan="2">
     @using (Ajax.BeginForm(
@@ -13,13 +13,13 @@
         <div class="form-horizontal">
             <h4>Model</h4>
             <hr />
-            @Html.HiddenFor(model => model.Id)
-            <input type="hidden" name="SignalRClientId" value="should be set on load by the on-success handler" />
+            @Html.HiddenFor(model => model.Model.Id)
+            <input type="hidden" name="SignalRClientId" value="@Model.SignalRClientId" />
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Data, new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Model.Data, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Model.Data, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
 

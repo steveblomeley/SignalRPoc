@@ -33,16 +33,18 @@ namespace SignalRPoc.Controllers
 
             if (data == null) throw new HttpException(404, $"No data found with id={id}");
 
+            var model = new ViewModel {Model = data, SignalRClientId = signalrClientId};
+
             AllSessions.List.Add(new Session
             {
                 User = HttpContext.User.Identity.Name,
-                RecordId = data.Id,
+                RecordId = id,
                 SignalRClientId = signalrClientId
             });
             var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
             context.Clients.All.sessionsChanged();
 
-            return PartialView("_Edit", data);
+            return PartialView("_Edit", model);
         }
 
         [HttpPost]

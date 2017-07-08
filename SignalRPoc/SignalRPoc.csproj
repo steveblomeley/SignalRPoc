@@ -189,6 +189,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\PocHub.cs" />
+    <Compile Include="Models\ViewModel.cs" />
     <Compile Include="PerfCounters\PerfCounterService.cs" />
     <Compile Include="PerfCounters\PerfCounterWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -37,7 +37,7 @@ $(document).ready(function () {
     });
 
     sessionsHub.client.sessionsChanged = function () {
-        //TODO: split these 2 steps out into separate scripts for the 2 pages that use sessions info
+        //TODO: split these 2 steps out into separate scripts for the 2 pages that use session info
 
         //If we're on the sessions listing page, update the list
         $("#sessions").load("/Home/SessionsPartial");

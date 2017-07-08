@@ -44,8 +44,3 @@ function editPost(e) {
     var action = $(target).attr("data-action");
     $(target).closest("form").attr("action", action);
 }
-
-function putSignalRClientIdInHiddenField() {
-    var signalRClientId = $.connection.hub.id;
-    $("input[name='SignalRClientId']").val(signalRClientId);
-}
