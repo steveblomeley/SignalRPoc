@@ -1,7 +1,9 @@
 ﻿(function () {
     var pocHub = $.connection.pocHub;
     $.connection.hub.logging = true;
-    $.connection.hub.start();
+    $.connection.hub.start()
+        .done(function () { alert("Now connected to SignalR hub, connection ID=" + $.connection.hub.id); })
+        .fail(function () { alert("Could not connect to SignalR hub!")});
 
     pocHub.client.newMessage = function (message) {
         model.addMessage(message);

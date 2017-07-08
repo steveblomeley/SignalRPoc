@@ -1,0 +1,55 @@
+﻿@model IEnumerable<SignalRPoc.Models.Model>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="alert alert-success hidden" id="alert-success"></div>
+<div class="alert alert-danger hidden" id="alert-error"></div>
+<div class="alert alert-warning hidden" id="alert-info"></div>
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        var displayId = $"display-for-model-{item.Id}";
+        var editorId = $"editor-for-model-{item.Id}";
+
+        <tr id="@displayId">
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Ajax.ActionLink(
+                    "Edit",
+                    MVC.Data.Edit(item.Id),
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = @editorId,
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "Get"
+                    },
+                    new{@class = "editor-link"})
+            </td>
+        </tr>
+        <tr id="@editorId"></tr>
+    }
+</table>
+
+<div id="no-more-data" class="hidden"><h3>No more data to edit!</h3></div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/SignalR/hubs"></script>
+    <script src="~/Scripts/SignalRPoco/App.js"></script>
+    <script src="~/Scripts/SignalRPoco/Sessions.js"></script>
+}

@@ -1,30 +1,73 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+using Microsoft.AspNet.SignalR;
+using SignalRPoc.App_Data;
+using SignalRPoc.Hubs;
+using SignalRPoc.Models;
 
 namespace SignalRPoc.Controllers
 {
-    public class HomeController : Controller
+    public partial class HomeController : Controller
     {
-        public ActionResult Index()
+        private static int _recordId = 0;
+
+        public virtual ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public virtual ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public virtual ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        [HttpGet]
+        public virtual ActionResult Edit()
+        {
+            var model = new Model
+            {
+                Id = _recordId++,
+                Data = "some data"
+            };
+
+            AllSessions.List.Add(new Session { User = HttpContext.User.Identity.Name, RecordId = model.Id });
+            var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
+            context.Clients.All.sessionsChanged();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public virtual ActionResult Edit(Model model)
+        {
+            var user = HttpContext.User.Identity.Name;
+            var session = AllSessions.List.FirstOrDefault(x => x.User == user && x.RecordId == model.Id);
+            if (session != null) AllSessions.List.Remove(session);
+            var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
+            context.Clients.All.sessionsChanged();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public virtual ActionResult Sessions()
+        {
+            return View(AllSessions.List);
+        }
+
+        [HttpGet]
+        public virtual PartialViewResult SessionsPartial()
+        {
+            return PartialView("_Sessions", AllSessions.List);
         }
     }
 }
