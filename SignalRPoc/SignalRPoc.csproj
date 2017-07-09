@@ -178,6 +178,8 @@
     <Compile Include="DataController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Filters\ClosesEditorForRecord.cs" />
+    <Compile Include="Filters\OpensEditorForRecord.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
