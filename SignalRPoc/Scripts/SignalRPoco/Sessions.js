@@ -25,6 +25,11 @@ function appendSignalRClientIdToEditQueryStrings(signalRClientId) {
     });
 }
 
+function enableThePage()
+{
+    $("#json-overlay").hide();
+}
+
 $(document).ready(function () {
     updateLockedRecords();
 });
@@ -34,6 +39,7 @@ $(document).ready(function () {
     $.connection.hub.logging = true;
     $.connection.hub.start().done(function() {
         appendSignalRClientIdToEditQueryStrings($.connection.hub.id);
+        enableThePage();
     });
 
     sessionsHub.client.sessionsChanged = function () {

@@ -2,10 +2,7 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.SignalR;
-using SignalRPoc.App_Data;
 using SignalRPoc.Filters;
-using SignalRPoc.Hubs;
 using SignalRPoc.Models;
 
 namespace SignalRPoc.Controllers
