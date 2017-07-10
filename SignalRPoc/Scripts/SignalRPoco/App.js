@@ -1,5 +1,5 @@
 ﻿jQuery.fn.showAlertMessage = function (message) {
-    return $(this).empty().append(message).removeClass("hidden").show().delay(1000).fadeOut(2000);
+    return $(this).empty().append(message).removeClass("hidden").show().delay(1000).hide(2000);
 };
 
 function editPostSuccess(data) {

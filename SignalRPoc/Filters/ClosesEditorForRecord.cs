@@ -16,7 +16,7 @@ namespace SignalRPoc.Filters
             var signalRClientId = httpContext.Request.Form["SignalRClientId"];
 
             var sessions = AllSessions.List
-                .Where(x => x.User == user && x.RecordId == recordId && x.SignalRClientId == signalRClientId);
+                .Where(x => x.User == user && x.RecordId == recordId && x.SignalRClientId == signalRClientId).ToList();
             foreach (var session in sessions)
             {
                 AllSessions.List.Remove(session);
