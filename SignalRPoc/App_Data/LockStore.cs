@@ -22,8 +22,9 @@ namespace SignalRPoc.App_Data
         public bool DeleteWhere(Func<Session, bool> predicate)
         {
             var result = false;
+            var sessionsToRemove = Sessions.Where(predicate).ToList();
 
-            foreach (var session in Sessions.Where(predicate))
+            foreach (var session in sessionsToRemove)
             {
                 Sessions.Remove(session);
                 result = true;
