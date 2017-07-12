@@ -13,10 +13,8 @@ function editPostSuccess(data) {
 function editSaved(data) {
     $("#alert-success").showAlertMessage(data.Message);
 
-    var editorId = "#editor-for-model-" + data.Id;
-
-    $(editorId).prev("tr").remove();
-    $(editorId).remove();
+    $("#display-for-model-" + data.Id).remove();
+    $("#editor-for-model-" + data.Id).remove();
 
     if ($("[id^=editor-for-model-]").length === 0) {
         $("#no-more-data").removeClass("hidden");
@@ -26,17 +24,13 @@ function editSaved(data) {
 function editCancelled(data) {
     $("#alert-info").showAlertMessage(data.Message);
 
-    var editorId = "#editor-for-model-" + data.Id;
-
-    $(editorId).empty();
+    $("#editor-for-model-" + data.Id).empty();
 }
 
 function editPostFailure(data) {
     $("#alert-error").showAlertMessage(data.responseJSON.Message);
 
-    var editorId = "#editor-for-model-" + data.responseJSON.Id;
-
-    $(editorId).empty();
+    $("#editor-for-model-" + data.responseJSON.Id).empty();
 }
 
 function editPost(e) {
@@ -44,3 +38,11 @@ function editPost(e) {
     var action = $(target).attr("data-action");
     $(target).closest("form").attr("action", action);
 }
+
+$(document).ready(function() {
+    $("body").on("submit",
+        "form",
+        function() {
+            $(this).find(":submit").attr("disabled", "disabled");
+        });
+});

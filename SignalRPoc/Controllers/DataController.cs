@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.SignalR;
-using SignalRPoc.App_Data;
-using SignalRPoc.Hubs;
+using SignalRPoc.Filters;
 using SignalRPoc.Models;
 
 namespace SignalRPoc.Controllers
@@ -27,6 +26,7 @@ namespace SignalRPoc.Controllers
         }
 
         [HttpGet]
+        [OpensEditorForRecord]
         public virtual PartialViewResult Edit(int id, string signalrClientId = "")
         {
             var data = _data.FirstOrDefault(x => x.Id == id);
@@ -35,27 +35,14 @@ namespace SignalRPoc.Controllers
 
             var model = new ViewModel {Model = data, SignalRClientId = signalrClientId};
 
-            AllSessions.List.Add(new Session
-            {
-                User = HttpContext.User.Identity.Name,
-                RecordId = id,
-                SignalRClientId = signalrClientId
-            });
-            var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
-            context.Clients.All.sessionsChanged();
-
             return PartialView("_Edit", model);
         }
 
         [HttpPost]
+        [ClosesEditorForRecord]
         public virtual JsonResult Edit(Model model, string signalrClientId)
         {
-            var user = HttpContext.User.Identity.Name;
-            var session = AllSessions.List
-                .FirstOrDefault(x => x.User == user && x.RecordId == model.Id && x.SignalRClientId==signalrClientId);
-            if (session != null) AllSessions.List.Remove(session);
-            var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
-            context.Clients.All.sessionsChanged();
+            Thread.Sleep(2000);
 
             if (model.Data.StartsWith("Fail"))
             {
@@ -67,14 +54,9 @@ namespace SignalRPoc.Controllers
         }
 
         [HttpPost]
+        [ClosesEditorForRecord]
         public virtual JsonResult CancelEdit(Model model)
         {
-            var user = HttpContext.User.Identity.Name;
-            var session = AllSessions.List.FirstOrDefault(x => x.User == user && x.RecordId == model.Id);
-            if (session != null) AllSessions.List.Remove(session);
-            var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
-            context.Clients.All.sessionsChanged();
-
             return Json(new { model.Id, Message = $"Cancelled edit of \"{model.Data}\"", Cancelled = true });
         }
     }
