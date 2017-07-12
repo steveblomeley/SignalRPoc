@@ -1,4 +1,3 @@
-using System;
 using System.Web.Mvc;
 using Microsoft.AspNet.SignalR;
 using SignalRPoc.App_Data;
@@ -7,8 +6,6 @@ using SignalRPoc.Models;
 
 namespace SignalRPoc.Filters
 {
-    public class TakesALockAttribute : Attribute { }
-
     public class TakesALockFilter : IActionFilter
     {
         public void OnActionExecuting(ActionExecutingContext filterContext)

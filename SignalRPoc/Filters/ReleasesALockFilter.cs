@@ -6,9 +6,13 @@ using SignalRPoc.Hubs;
 
 namespace SignalRPoc.Filters
 {
-    public class ClosesEditorForRecord : ActionFilterAttribute
+    public class ReleasesALockFilter : IActionFilter
     {
-        public override void OnActionExecuted(ActionExecutedContext actionExecutedContext)
+        public void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+        }
+
+        public void OnActionExecuted(ActionExecutedContext actionExecutedContext)
         {
             var httpContext = actionExecutedContext.HttpContext;
             var user = httpContext.User.Identity.Name;
@@ -24,8 +28,6 @@ namespace SignalRPoc.Filters
 
             var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
             context.Clients.All.sessionsChanged();
-
-            base.OnActionExecuted(actionExecutedContext);
         }
     }
 }

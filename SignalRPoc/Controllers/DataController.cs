@@ -39,7 +39,7 @@ namespace SignalRPoc.Controllers
         }
 
         [HttpPost]
-        [ClosesEditorForRecord]
+        [ReleasesALock]
         public virtual JsonResult Edit(Model model, string signalrClientId)
         {
             Thread.Sleep(2000);
@@ -54,7 +54,7 @@ namespace SignalRPoc.Controllers
         }
 
         [HttpPost]
-        [ClosesEditorForRecord]
+        [ReleasesALock]
         public virtual JsonResult CancelEdit(Model model)
         {
             return Json(new { model.Id, Message = $"Cancelled edit of \"{model.Data}\"", Cancelled = true });
