@@ -8,6 +8,13 @@ namespace SignalRPoc.Filters
 {
     public class TakesALockFilter : IActionFilter
     {
+        private readonly ILockStore _lockStore;
+
+        public TakesALockFilter(ILockStore lockStore)
+        {
+            _lockStore = lockStore;
+        }
+
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
         }
@@ -19,7 +26,7 @@ namespace SignalRPoc.Filters
             var recordId = int.Parse(httpContext.Request.RequestContext.RouteData.GetRequiredString("id"));
             var signalRClientId = httpContext.Request.QueryString["signalRClientId"];
 
-            AllSessions.List.Add(new Session
+            _lockStore.Add(new Session
             {
                 User = user,
                 RecordId = recordId,

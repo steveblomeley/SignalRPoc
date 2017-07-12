@@ -180,13 +180,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Data\ILockStore.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\WebApiConfig.cs" />
-    <Compile Include="App_Data\AllSessions.cs" />
+    <Compile Include="App_Data\LockStore.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>

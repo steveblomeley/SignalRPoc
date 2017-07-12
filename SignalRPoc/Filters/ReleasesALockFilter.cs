@@ -8,6 +8,13 @@ namespace SignalRPoc.Filters
 {
     public class ReleasesALockFilter : IActionFilter
     {
+        private readonly ILockStore _lockStore;
+
+        public ReleasesALockFilter(ILockStore lockStore)
+        {
+            _lockStore = lockStore;
+        }
+
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
         }
@@ -19,12 +26,8 @@ namespace SignalRPoc.Filters
             var recordId = int.Parse(httpContext.Request.Form["Model.Id"]);
             var signalRClientId = httpContext.Request.Form["SignalRClientId"];
 
-            var sessions = AllSessions.List
-                .Where(x => x.User == user && x.RecordId == recordId && x.SignalRClientId == signalRClientId).ToList();
-            foreach (var session in sessions)
-            {
-                AllSessions.List.Remove(session);
-            }
+            _lockStore.DeleteWhere(
+                x => x.User == user && x.RecordId == recordId && x.SignalRClientId == signalRClientId);
 
             var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
             context.Clients.All.sessionsChanged();
