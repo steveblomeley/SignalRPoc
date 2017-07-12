@@ -38,3 +38,11 @@ function editPost(e) {
     var action = $(target).attr("data-action");
     $(target).closest("form").attr("action", action);
 }
+
+$(document).ready(function() {
+    $("body").on("submit",
+        "form",
+        function() {
+            $(this).find(":submit").attr("disabled", "disabled");
+        });
+});

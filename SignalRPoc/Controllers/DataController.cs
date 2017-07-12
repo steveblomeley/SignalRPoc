@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using SignalRPoc.Filters;
@@ -41,6 +42,8 @@ namespace SignalRPoc.Controllers
         [ClosesEditorForRecord]
         public virtual JsonResult Edit(Model model, string signalrClientId)
         {
+            Thread.Sleep(2000);
+
             if (model.Data.StartsWith("Fail"))
             {
                 Response.StatusCode = 500;
