@@ -6,7 +6,7 @@ using Ninject.Web.WebApi;
 using System.Web.Http;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SignalRPoc.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SignalRPoc.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(SignalRPoc.App_Start.NinjectWebCommon), "Stop")]
 
 namespace SignalRPoc.App_Start
 {
@@ -19,7 +19,7 @@ namespace SignalRPoc.App_Start
     using Ninject.Web.Common;
     using Microsoft.AspNet.SignalR;
 
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 

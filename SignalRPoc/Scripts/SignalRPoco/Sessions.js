@@ -4,12 +4,13 @@
             type: "GET",
             dataType: "json",
             success: function (data) {
-                $("[id^=display-for-model-]").removeClass("locked");
+                $("[id^=display-for-model-]").removeClass("locked locked-by-me");
+                var mySignalRClientId = $.connection.hub.id;
 
                 $.each(data,
                     function (index, element) {
                         var displayId = "#display-for-model-" + element.RecordId;
-                        $(displayId).addClass("locked");
+                        $(displayId).addClass(element.SignalRClientId === mySignalRClientId ? "locked-by-me" : "locked");
                     });
             },
             error: function () {
