@@ -10,6 +10,12 @@ namespace SignalRPoc.Controllers
     public partial class HomeController : Controller
     {
         private static int _recordId = 0;
+        private readonly ILockStore _lockStore;
+
+        public HomeController(ILockStore lockStore)
+        {
+            _lockStore = lockStore;
+        }
 
         public virtual ActionResult Index()
         {
@@ -30,44 +36,44 @@ namespace SignalRPoc.Controllers
             return View();
         }
 
-        [HttpGet]
-        public virtual ActionResult Edit()
-        {
-            var model = new Model
-            {
-                Id = _recordId++,
-                Data = "some data"
-            };
+        //[HttpGet]
+        //public virtual ActionResult Edit()
+        //{
+        //    var model = new Model
+        //    {
+        //        Id = _recordId++,
+        //        Data = "some data"
+        //    };
 
-            AllSessions.List.Add(new Session { User = HttpContext.User.Identity.Name, RecordId = model.Id });
-            var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
-            context.Clients.All.sessionsChanged();
+        //    AllSessions.List.Add(new Session { User = HttpContext.User.Identity.Name, RecordId = model.Id });
+        //    var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
+        //    context.Clients.All.sessionsChanged();
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
-        [HttpPost]
-        public virtual ActionResult Edit(Model model)
-        {
-            var user = HttpContext.User.Identity.Name;
-            var session = AllSessions.List.FirstOrDefault(x => x.User == user && x.RecordId == model.Id);
-            if (session != null) AllSessions.List.Remove(session);
-            var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
-            context.Clients.All.sessionsChanged();
+        //[HttpPost]
+        //public virtual ActionResult Edit(Model model)
+        //{
+        //    var user = HttpContext.User.Identity.Name;
+        //    var session = AllSessions.List.FirstOrDefault(x => x.User == user && x.RecordId == model.Id);
+        //    if (session != null) AllSessions.List.Remove(session);
+        //    var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
+        //    context.Clients.All.sessionsChanged();
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
 
         [HttpGet]
         public virtual ActionResult Sessions()
         {
-            return View(AllSessions.List);
+            return View(_lockStore.GetAll());
         }
 
         [HttpGet]
         public virtual PartialViewResult SessionsPartial()
         {
-            return PartialView("_Sessions", AllSessions.List);
+            return PartialView("_Sessions", _lockStore.GetAll());
         }
     }
 }

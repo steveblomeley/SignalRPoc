@@ -6,16 +6,27 @@ using SignalRPoc.Models;
 
 namespace SignalRPoc.Filters
 {
-    public class OpensEditorForRecord : ActionFilterAttribute
+    public class TakesALockFilter : IActionFilter
     {
-        public override void OnActionExecuted(ActionExecutedContext actionExecutedContext)
+        private readonly ILockStore _lockStore;
+
+        public TakesALockFilter(ILockStore lockStore)
+        {
+            _lockStore = lockStore;
+        }
+
+        public void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+        }
+
+        public void OnActionExecuted(ActionExecutedContext actionExecutedContext)
         {
             var httpContext = actionExecutedContext.HttpContext;
             var user = httpContext.User.Identity.Name;
             var recordId = int.Parse(httpContext.Request.RequestContext.RouteData.GetRequiredString("id"));
             var signalRClientId = httpContext.Request.QueryString["signalRClientId"];
 
-            AllSessions.List.Add(new Session
+            _lockStore.Add(new Session
             {
                 User = user,
                 RecordId = recordId,
@@ -24,8 +35,6 @@ namespace SignalRPoc.Filters
 
             var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
             context.Clients.All.sessionsChanged();
-
-            base.OnActionExecuted(actionExecutedContext);
         }
     }
 }

@@ -7,10 +7,17 @@ namespace SignalRPoc.Controllers
 {
     public class SessionsController : ApiController
     {
+        private readonly ILockStore _lockStore;
+
+        public SessionsController(ILockStore lockStore)
+        {
+            _lockStore = lockStore;
+        }
+
         // GET api/<controller>
         public IEnumerable<Session> Get()
         {
-            return AllSessions.List;
+            return _lockStore.GetAll();
         }
     }
 }

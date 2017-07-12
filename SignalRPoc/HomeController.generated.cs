@@ -28,9 +28,6 @@ namespace SignalRPoc.Controllers
     public partial class HomeController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController() { }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected HomeController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -78,7 +75,6 @@ namespace SignalRPoc.Controllers
             public readonly string Index = "Index";
             public readonly string About = "About";
             public readonly string Contact = "Contact";
-            public readonly string Edit = "Edit";
             public readonly string Sessions = "Sessions";
             public readonly string SessionsPartial = "SessionsPartial";
         }
@@ -89,20 +85,11 @@ namespace SignalRPoc.Controllers
             public const string Index = "Index";
             public const string About = "About";
             public const string Contact = "Contact";
-            public const string Edit = "Edit";
             public const string Sessions = "Sessions";
             public const string SessionsPartial = "SessionsPartial";
         }
 
 
-        static readonly ActionParamsClass_Edit s_params_Edit = new ActionParamsClass_Edit();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Edit EditParams { get { return s_params_Edit; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Edit
-        {
-            public readonly string model = "model";
-        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -164,29 +151,6 @@ namespace SignalRPoc.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Contact);
             ContactOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Edit()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
-            EditOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SignalRPoc.Models.Model model);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Edit(SignalRPoc.Models.Model model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            EditOverride(callInfo, model);
             return callInfo;
         }
 
