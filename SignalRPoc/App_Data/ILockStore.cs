@@ -8,7 +8,7 @@ namespace SignalRPoc.App_Data
     {
         void Add(Session session);
         void Delete(Session session);
-        void DeleteWhere(Func<Session, bool> predicate);
+        bool DeleteWhere(Func<Session, bool> predicate);
         IEnumerable<Session> GetAll();
     }
 }

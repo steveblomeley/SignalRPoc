@@ -7,29 +7,34 @@ namespace SignalRPoc.App_Data
 {
     public class LockStore : ILockStore
     {
-        private static readonly HashSet<Session> _sessions = new HashSet<Session>();
+        private static readonly HashSet<Session> Sessions = new HashSet<Session>();
 
         public void Add(Session session)
         {
-            _sessions.Add(session);
+            Sessions.Add(session);
         }
 
         public void Delete(Session session)
         {
-            _sessions.Remove(session);
+            Sessions.Remove(session);
         }
 
-        public void DeleteWhere(Func<Session, bool> predicate)
+        public bool DeleteWhere(Func<Session, bool> predicate)
         {
-            foreach (var session in _sessions.Where(predicate))
+            var result = false;
+
+            foreach (var session in Sessions.Where(predicate))
             {
-                _sessions.Remove(session);
+                Sessions.Remove(session);
+                result = true;
             }
+
+            return result;
         }
 
         public IEnumerable<Session> GetAll()
         {
-            return _sessions;
+            return Sessions;
         }
     }
 }
