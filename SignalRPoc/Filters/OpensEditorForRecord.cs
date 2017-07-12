@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using Microsoft.AspNet.SignalR;
 using SignalRPoc.App_Data;
@@ -6,9 +7,15 @@ using SignalRPoc.Models;
 
 namespace SignalRPoc.Filters
 {
-    public class OpensEditorForRecord : ActionFilterAttribute
+    public class TakesALockAttribute : Attribute { }
+
+    public class TakesALockFilter : IActionFilter
     {
-        public override void OnActionExecuted(ActionExecutedContext actionExecutedContext)
+        public void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+        }
+
+        public void OnActionExecuted(ActionExecutedContext actionExecutedContext)
         {
             var httpContext = actionExecutedContext.HttpContext;
             var user = httpContext.User.Identity.Name;
@@ -24,8 +31,6 @@ namespace SignalRPoc.Filters
 
             var context = GlobalHost.ConnectionManager.GetHubContext<SessionsHub>();
             context.Clients.All.sessionsChanged();
-
-            base.OnActionExecuted(actionExecutedContext);
         }
     }
 }
