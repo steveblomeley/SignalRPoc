@@ -26,7 +26,7 @@ namespace SignalRPoc.Controllers
         }
 
         [HttpGet]
-        [OpensEditorForRecord]
+        [TakesALock]
         public virtual PartialViewResult Edit(int id, string signalrClientId = "")
         {
             var data = _data.FirstOrDefault(x => x.Id == id);
