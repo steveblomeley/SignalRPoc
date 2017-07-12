@@ -1,3 +1,7 @@
+using System.Web.Mvc;
+using Ninject.Web.Mvc.FilterBindingSyntax;
+using SignalRPoc.Filters;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SignalRPoc.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SignalRPoc.App_Start.NinjectWebCommon), "Stop")]
 
@@ -61,6 +65,12 @@ namespace SignalRPoc.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel
+                .BindFilter<TakesALockFilter>(FilterScope.Action, 0)
+                .WhenActionMethodHas<TakesALockAttribute>();
+            kernel
+                .BindFilter<ReleasesALockFilter>(FilterScope.Action, 0)
+                .WhenActionMethodHas<ReleasesALockAttribute>();
         }        
     }
 }
