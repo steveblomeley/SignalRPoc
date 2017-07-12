@@ -22,6 +22,7 @@
     @foreach (var item in Model)
     {
         var displayId = $"display-for-model-{item.Id}";
+        var editorLinkId = $"editor-link-for-model-{item.Id}";
         var editorId = $"editor-for-model-{item.Id}";
 
         <tr id="@displayId">
@@ -38,7 +39,7 @@
                         InsertionMode = InsertionMode.Replace,
                         HttpMethod = "Get"
                     },
-                    new{@class = "editor-link"})
+                    new{@class = "editor-link", id=editorLinkId})
             </td>
         </tr>
         <tr id="@editorId"></tr>

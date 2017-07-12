@@ -6,11 +6,11 @@ using SignalRPoc.Hubs;
 
 namespace SignalRPoc.Filters
 {
-    public class ReleasesALockFilter : IActionFilter
+    public class UnlockTheRecordFilter : IActionFilter
     {
-        private readonly ILockStore _lockStore;
+        private readonly ISessionStore _lockStore;
 
-        public ReleasesALockFilter(ILockStore lockStore)
+        public UnlockTheRecordFilter(ISessionStore lockStore)
         {
             _lockStore = lockStore;
         }

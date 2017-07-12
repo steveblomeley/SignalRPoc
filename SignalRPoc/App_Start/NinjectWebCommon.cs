@@ -76,15 +76,15 @@ namespace SignalRPoc.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ILockStore>().To<LockStore>();
+            kernel.Bind<ISessionStore>().To<SessionStore>();
 
             kernel
-                .BindFilter<TakesALockFilter>(FilterScope.Action, 0)
-                .WhenActionMethodHas<TakesALockAttribute>();
+                .BindFilter<LockTheRecordFilter>(FilterScope.Action, 0)
+                .WhenActionMethodHas<LockTheRecordAttribute>();
 
             kernel
-                .BindFilter<ReleasesALockFilter>(FilterScope.Action, 0)
-                .WhenActionMethodHas<ReleasesALockAttribute>();
+                .BindFilter<UnlockTheRecordFilter>(FilterScope.Action, 0)
+                .WhenActionMethodHas<UnlockTheRecordAttribute>();
         }        
     }
 }

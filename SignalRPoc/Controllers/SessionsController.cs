@@ -7,9 +7,9 @@ namespace SignalRPoc.Controllers
 {
     public class SessionsController : ApiController
     {
-        private readonly ILockStore _lockStore;
+        private readonly ISessionStore _lockStore;
 
-        public SessionsController(ILockStore lockStore)
+        public SessionsController(ISessionStore lockStore)
         {
             _lockStore = lockStore;
         }

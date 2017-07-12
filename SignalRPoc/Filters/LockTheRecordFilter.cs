@@ -6,11 +6,11 @@ using SignalRPoc.Models;
 
 namespace SignalRPoc.Filters
 {
-    public class TakesALockFilter : IActionFilter
+    public class LockTheRecordFilter : IActionFilter
     {
-        private readonly ILockStore _lockStore;
+        private readonly ISessionStore _lockStore;
 
-        public TakesALockFilter(ILockStore lockStore)
+        public LockTheRecordFilter(ISessionStore lockStore)
         {
             _lockStore = lockStore;
         }

@@ -4,7 +4,7 @@ using SignalRPoc.Models;
 
 namespace SignalRPoc.App_Data
 {
-    public interface ILockStore
+    public interface ISessionStore
     {
         void Add(Session session);
         void Delete(Session session);

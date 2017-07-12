@@ -10,9 +10,9 @@ namespace SignalRPoc.Controllers
     public partial class HomeController : Controller
     {
         private static int _recordId = 0;
-        private readonly ILockStore _lockStore;
+        private readonly ISessionStore _lockStore;
 
-        public HomeController(ILockStore lockStore)
+        public HomeController(ISessionStore lockStore)
         {
             _lockStore = lockStore;
         }

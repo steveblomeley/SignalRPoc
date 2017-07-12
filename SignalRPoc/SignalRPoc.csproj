@@ -196,10 +196,10 @@
     <Compile Include="DataController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Filters\ReleasesALockFilter.cs" />
-    <Compile Include="Filters\RelasesALockAttribute.cs" />
-    <Compile Include="Filters\TakesALockAttribute.cs" />
-    <Compile Include="Filters\TakesALockFilter.cs" />
+    <Compile Include="Filters\UnlockTheRecordFilter.cs" />
+    <Compile Include="Filters\UnlockTheRecordAttribute.cs" />
+    <Compile Include="Filters\LockTheRecordAttribute.cs" />
+    <Compile Include="Filters\LockTheRecordFilter.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>

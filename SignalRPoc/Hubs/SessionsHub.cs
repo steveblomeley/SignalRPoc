@@ -6,9 +6,9 @@ namespace SignalRPoc.Hubs
 {
     public class SessionsHub : Hub
     {
-        private readonly ILockStore _lockStore;
+        private readonly ISessionStore _lockStore;
 
-        public SessionsHub(ILockStore lockStore)
+        public SessionsHub(ISessionStore lockStore)
         {
             _lockStore = lockStore;
         }

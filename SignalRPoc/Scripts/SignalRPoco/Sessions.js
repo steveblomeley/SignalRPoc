@@ -1,16 +1,34 @@
-﻿function updateLockedRecords() {
+﻿function thisSignalRSessionIsMe(signalRClientId) {
+    return signalRClientId === $.connection.hub.id;
+}
+
+function updateLockedRecords() {
         $.ajax({
             url: "/api/Sessions",
             type: "GET",
             dataType: "json",
             success: function (data) {
                 $("[id^=display-for-model-]").removeClass("locked locked-by-me");
-                var mySignalRClientId = $.connection.hub.id;
+                $(".editor-link").unbind("click");
 
                 $.each(data,
                     function (index, element) {
                         var displayId = "#display-for-model-" + element.RecordId;
-                        $(displayId).addClass(element.SignalRClientId === mySignalRClientId ? "locked-by-me" : "locked");
+                        var editorLinkId = "#editor-link-for-model-" + element.RecordId;
+
+                        if (thisSignalRSessionIsMe(element.SignalRClientId)) {
+                            $(displayId).addClass("locked-by-me");
+                        } else {
+                            $(displayId).addClass("locked");
+                            $(editorLinkId).bind("click",
+                                function(e) {
+                                    alert("Another user is already editing this record.");
+
+                                    //TODO: find something equivalent to this, that is easily reversible, and
+                                    //that actually works to disable an Ajax.Actionlink.
+                                    e.preventDefault();
+                                });
+                        }
                     });
             },
             error: function () {

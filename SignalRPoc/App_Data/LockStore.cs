@@ -5,7 +5,7 @@ using SignalRPoc.Models;
 
 namespace SignalRPoc.App_Data
 {
-    public class LockStore : ILockStore
+    public class SessionStore : ISessionStore
     {
         private static readonly HashSet<Session> Sessions = new HashSet<Session>();
 
