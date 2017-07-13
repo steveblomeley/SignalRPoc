@@ -9,7 +9,7 @@ function updateLockedRecords() {
             dataType: "json",
             success: function (data) {
                 $("[id^=display-for-model-]").removeClass("locked locked-by-me");
-                $(".editor-link").unbind("click");
+                $(".editor-link").removeClass("hidden");
 
                 $.each(data,
                     function (index, element) {
@@ -20,14 +20,7 @@ function updateLockedRecords() {
                             $(displayId).addClass("locked-by-me");
                         } else {
                             $(displayId).addClass("locked");
-                            $(editorLinkId).bind("click",
-                                function(e) {
-                                    alert("Another user is already editing this record.");
-
-                                    //TODO: find something equivalent to this, that is easily reversible, and
-                                    //that actually works to disable an Ajax.Actionlink.
-                                    e.preventDefault();
-                                });
+                            $(editorLinkId).addClass("hidden");
                         }
                     });
             },
