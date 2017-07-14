@@ -9,7 +9,9 @@ function updateLockedRecords() {
             dataType: "json",
             success: function (data) {
                 $("[id^=display-for-model-]").removeClass("locked locked-by-me");
-                $(".editor-link").removeClass("hidden");
+                $(".editor-link")
+                    .attr("data-ajax", "true")
+                    .unbind("click");
 
                 $.each(data,
                     function (index, element) {
@@ -20,7 +22,14 @@ function updateLockedRecords() {
                             $(displayId).addClass("locked-by-me");
                         } else {
                             $(displayId).addClass("locked");
-                            $(editorLinkId).addClass("hidden");
+                            $(editorLinkId)
+                                .attr("data-ajax", "false")
+                                .bind("click",
+                                    function(e) {
+                                        $(this).preventDefault();
+                                        $(e.target).preventDefault();
+                                        return false;
+                                    });
                         }
                     });
             },
